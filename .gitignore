@@ -1,0 +1,14 @@
+.idea
+venv
+owa.db
+users.yaml
+__pycache__
+.vscode
+
+.env
+
+_IGNORE_session
+test.py
+session.data.json
+open-wa-session.postman_collection.json
+open-wa-session.sw_col.json

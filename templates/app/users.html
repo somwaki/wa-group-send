@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Users
+{% endblock %}l %}
+
+{% block page_name %}
+Users
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12">
+      <form class="navbar-form" method="get">
+        <div class="input-group no-border">
+          <div class="row">
+            <div class="col-md-5">
+              <input type="text" name="start_date" class="form-control" placeholder="Start Date">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+              <input type="text" name="end_date" class="form-control" placeholder="End Date">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-default btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">New User</h4>
+        <p class="card-category">Enter new user details</p>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="form-group">
+            <label for="first_name" class="bmd-label-floating">First Name</label>
+            <input type="text" required class="form-control" id="first_name" name="first_name">
+          </div>
+          <div class="form-group">
+            <label for="second_name" class="bmd-label-floating">Last Name</label>
+            <input type="text" required class="form-control" id="second_name" name="second_name">
+          </div>
+          <div class="form-group">
+            <label for="birth_entry_number" class="bmd-label-floating">Birth Entry Number</label>
+            <input type="text" required class="form-control" id="birth_entry_number" name="birth_entry_number">
+          </div>
+          <div class="form-group">
+            <label for="years" class="bmd-label-floating">Years</label>
+            <input type="number" required class="form-control" id="years" name="years">
+          </div>
+          <div class="form-group">
+            <label for="msisdn" class="bmd-label-floating">Phone Number</label>
+            <input type="number" required class="form-control" id="msisdn" name="msisdn">
+          </div>
+          <button type="submit" class="btn btn-primary pull-right">Save User</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title ">Users</h4>
+        <p class="card-category"> Registered Users</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Institution ID</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+            {% for user in users %}
+              <tr>
+                <td>{{ user['first_name'] }}</td>
+                <td>{{ user['second_name'] }}</td>
+                <td>{{ user['institution_id'] }}</td>
+                <td><a href="{{ url_for('user_details_view',  institutionId=user['institution_id']) }}"><button type="button" class="btn btn-primary pull-right">View Details</button></a></td>
+              </tr>
+            {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

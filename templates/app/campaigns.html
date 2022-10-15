@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home
+{% endblock %}l %}
+
+{% block page_name %}
+Campaigns
+{% endblock %}
+
+{% block content %}
+
+    <!-- <div class="col-md-12">
+      <form class="navbar-form" method="get">
+        <div class="input-group no-border">
+          <div class="row">
+            <div class="col-md-5">
+              <input type="text" name="start_date" class="form-control" placeholder="Start Date">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+              <input type="text" name="end_date" class="form-control" placeholder="End Date">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-default btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+          </button>
+        </div>
+      </form>
+    </div> -->
+
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Campaign Manager</h4>
+        <p class="card-category">Campaigns List</p>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="form-group">
+            <label for="title" class="bmd-label-floating">Campaign Title</label>
+            <input type="text" required class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="message" class="bmd-label-floating">Message</label>
+            <textarea type="textarea" required class="form-control text-area" id="message" name="message" ></textarea>
+          </div>
+          <!-- <div class="form-group">
+            <label for="birth_entry_number" class="bmd-label-floating">Date of Death</label>
+            <input type="text" class="form-control" id="birth_entry_number" name="death_date">
+          </div> -->
+          <button type="submit" class="btn btn-primary pull-right">Create Campaign</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title ">Campaign Records</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>#</th>
+            <th>Title</th>
+            <th>Date Created</th>
+            <th>Action</th>
+            <th>Details</th>
+            </thead>
+            <tbody>
+            {% for campaign in campaigns %}
+              <tr>
+                <td>{{ campaign['id'] }}</td>
+                <td>{{ campaign['title'] }}</td>
+                <td>{{ campaign['created_at'] }}</td>
+                <td>
+                  <form method="post" action="{{ url_for('run_campaign') }}">
+                    <div class="form-group">
+                      <input type="hidden" required class="form-control" name="id" value="{{ campaign['id'] }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Run Now</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="{{ url_for('delete_campaign') }}" method="post">
+                    <input type="hidden" name="id" value="{{ campaign['id'] }}">
+                    <button type="submit" class="btn btn-sm btn-danger pull-right">Delete</button>
+                  </form></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

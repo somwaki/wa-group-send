@@ -1,0 +1,54 @@
+version: '3.8'
+networks:
+  groupbot-network:
+    name: groupbot-network
+    external: true
+
+services:
+  # application 
+  app:
+    restart: always
+    command: gunicorn app:app --bind 0.0.0.0:8000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - groupbot-network
+    ports: 
+      - 10000:8000
+    volumes:
+      - /opt/wa-group-send/users.yaml:/app/users.yaml
+    env_file:
+      - ./.env
+
+  worker:
+    restart: always
+    command: flask rq worker
+    build:
+      context: .
+      dockerfile: Worker.Dockerfile
+    deploy:
+      mode: replicated
+      replicas: ${WORKER_REPLICAS}
+    networks:
+      - groupbot-network
+    env_file:
+      - ./.env
+    volumes:
+      - /opt/wa-group-send/users.yaml:/app/users.yaml
+
+  scheduler:
+    restart: always
+    command: flask rq scheduler --interval 1
+    build:
+      context: .
+      dockerfile: Worker.Dockerfile
+    networks:
+      - groupbot-network
+    env_file:
+      - ./.env
+    volumes:
+      - /opt/wa-group-send/users.yaml:/app/users.yaml
+
+volumes:
+  sessions:

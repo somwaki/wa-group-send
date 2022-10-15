@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Details
+{% endblock %}
+
+{% block page_name %}
+User Details
+{% endblock %}
+
+{% block content %}
+  <div class="col-md-8">
+    <form method="post">
+      <button type="submit" class="btn btn-primary pull-right">Block User</button><div class="clearfix"></div>
+    </form>
+  </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">User Details</h4>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="first_name" class="bmd-label-floating">First Name</label>
+              <input type="text" class="form-control" id="first_name" value="{{ details['first_name'] }}">
+            </div>
+            <div class="form-group">
+              <label for="second_name" class="bmd-label-floating">Second Name</label>
+              <input type="text" class="form-control" id="second_name" value="{{ details['second_name'] }}">
+            </div>
+            <div class="form-group">
+              <label for="birth_entry_number" class="bmd-label-floating">Birth Entry Number</label>
+              <input type="text" class="form-control" id="birth_entry_number" value="{{ details['birth_entry_number'] }}">
+            </div>
+            <div class="form-group">
+              <label for="years" class="bmd-label-floating">Years</label>
+              <input type="number" class="form-control" id="years" value="{{ details['years'] }}">
+            </div>
+            <div class="form-group">
+              <label for="msisdn" class="bmd-label-floating">Phone Number</label>
+              <input type="number" class="form-control" id="msisdn" value="{{ details['msisdn'] }}">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title ">Children</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+              <th>First Name</th>
+              <th>Second Name</th>
+              <th>Phone Number</th>
+              <th>Birth Entry Number</th>
+              <th>Institution ID</th>
+              <th>Years</th>
+              <th>date_admitted</th>
+              </thead>
+              <tbody>
+              {% for user in children %}
+                <tr>
+                  <td>{{ user['first_name'] }}</td>
+                  <td>{{ user['second_name'] }}</td>
+                  <td>{{ user['msisdn'] }}</td>
+                  <td>{{ user['birth_entry_number'] }}</td>
+                  <td>{{ user['institution_id'] }}</td>
+                  <td>{{ user['years'] }}</td>
+                  <td>{{ user['date_admitted'] }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title ">Cases</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+              <th>Description</th>
+              <th>Occurrence</th>
+              </thead>
+              <tbody>
+              {% for case in cases %}
+                <tr>
+                  <td>{{ case['description'] }}</td>
+                  <td>{{ case['occurrence_date'] }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}

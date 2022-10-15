@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home
+{% endblock %}l %}
+
+{% block page_name %}
+Cases
+{% endblock %}
+
+{% block content %}
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title ">Reported cases</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>#</th>
+            <th>Joined</th>
+            <th>Sent Message</th>
+            <th>Sent at</th>
+            </thead>
+            <tbody>
+            {% for case in cases %}
+              <tr>
+                <td>{{ case['institution_id'] }}</td>
+                <td>{{ case['first_name'] }}</td>
+                <td>{{ case['case'] }}</td>
+                <td>{{ case['occurrence_date'] }}</td>
+
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
