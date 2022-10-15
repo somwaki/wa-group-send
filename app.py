@@ -461,7 +461,14 @@ def campaign_task(links_list: List[GroupLink], message: str, campaign_id, **kwar
         db.session.add(msg)
         db.session.commit()
         db.session.refresh(msg)
-
+        
+        """ uncomment the code below and comment the other remaining part to schedule all events. schedule events means,
+        for example, 
+        after joining a group, a new event to send message to that group is scheduled. and after sucessfully sending, a new event to leave group is scheduled.
+        this means, once an event has been scheduled, the code will continue running and processing other events that were scheduled before. that means, you
+        could see in your whatsapp, the bot sending a message to one group, leaving other 2 joining other 3 group... leving others sending to others... events
+        seem kinda random. but it's good since if one event fails, for example if a message is not sent, the bot will not leave the group since that event will 
+        not be scheduled """
         # join_group.schedule(
         #     timedelta(seconds=(i + 1) * 10),
         #     whatsapp=whatsapp,
@@ -471,6 +478,10 @@ def campaign_task(links_list: List[GroupLink], message: str, campaign_id, **kwar
         # logger.info(f" scheduled {link.link} for {(i + 1) * 10} seconds")
 
         # join group
+        
+        """if you uncomment the code above, then you should comment everythng else on this function below this quote. When uncommented as it is, the bot
+        will perform actions in the same order. join one group, send message, then leave....only then will it go to the next group. if an error occurs it will
+        stop there for the group. NOTE:  with this setup, tests we did showed the bot could join a group, and leave without sending the message"""
         code, join_resp = whatsapp.join_group(link.link)
         if code == 200 and join_resp["success"]:
             group_chat_id: str = join_resp["response"]["id"]
